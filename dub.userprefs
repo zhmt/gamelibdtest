@@ -1,13 +1,12 @@
 ﻿<Properties StartupItem="dub.json">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Default" PreferredExecutionTarget="debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="dub.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="source/app.d">
     <Files>
       <File FileName="../gamelibd/source/gamelibd/net/linux/TcpLinuxConn.d" Line="1" Column="1" />
       <File FileName="../gamelibd/source/gamelibd/net/linux/IoEventHandler.d" Line="1" Column="1" />
-      <File FileName="../gamelibd/source/gamelibd/net/conn.d" Line="174" Column="6" />
+      <File FileName="../gamelibd/source/gamelibd/net/conn.d" Line="107" Column="1" />
       <File FileName="../gamelibd/source/gamelibd/net/linux/TcpServerConn.d" Line="1" Column="1" />
-      <File FileName="../gamelibd/dub.json" Line="1" Column="1" />
-      <File FileName="dub.json" Line="10" Column="24" />
+      <File FileName="source/app.d" Line="105" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -7,7 +7,6 @@
 		"gamelibd": {"path":"../gamelibd"}
 	},
 	"workingDirectory":"../bin",
-	"versions": ["linux"],
 	"targetPath":"../bin",
 	"dflags-dmd": ["-vtls"],
 	"dflags" : ["-gc"]
