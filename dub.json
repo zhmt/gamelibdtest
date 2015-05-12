@@ -1,0 +1,14 @@
+{
+	"name": "gamelibdtest",
+	"description": "A minimal D application.",
+	"copyright": "Copyright © 2015, zhmt",
+	"authors": ["zhmt"],
+	"dependencies": {
+		"gamelibd": {"path":"../gamelibd"}
+	},
+	"workingDirectory":"../bin",
+	"versions": ["linux"],
+	"targetPath":"../bin",
+	"dflags-dmd": ["-vtls"],
+	"dflags" : ["-gc"]
+}
