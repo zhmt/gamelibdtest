@@ -1,8 +1,13 @@
 ﻿<Properties StartupItem="dub.json">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Default" PreferredExecutionTarget="debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="dub.json">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Default" PreferredExecutionTarget="release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="source/app.d">
     <Files>
-      <File FileName="dub.json" Line="11" Column="34" />
+      <File FileName="dub.json" Line="1" Column="1" />
+      <File FileName="source/app.d" Line="123" Column="29" />
+      <File FileName="../gamelibd/source/gamelibd/net/provider.d" Line="1" Column="1" />
+      <File FileName="../gamelibd/source/gamelibd/net/linux/linuxconn.d" Line="1" Column="1" />
+      <File FileName="../gamelibd/source/gamelibd/net/EventLoop.d" Line="1" Column="1" />
+      <File FileName="../gamelibd/source/gamelibd/net/PosixApi.d" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

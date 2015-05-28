@@ -87,15 +87,11 @@ void echoServer()
 			ubyte[100] buf;
 			while(true)
 			{
-				long ts = utcNow();
 				int n = c.readSome(buf);
-				//write(utcNow()-ts,"_");
 				if(n<=0){
 					break;
 				}
-				ts = utcNow();
 				c.write(buf[0..n]);
-				//write(utcNow()-ts,",");
 			}
 
 			writeFlush("close server sock");
@@ -115,7 +111,6 @@ void echoClient()
 			int N = 10000000;
 			int T = 1;
 
-			//long ts = start;
 			ExceptionSafeFiber[] tasks;
 
 			for(int ii=0; ii<T; ii++){
@@ -124,16 +119,12 @@ void echoClient()
 						Ptr!Conn conn = connect("127.0.0.1",8881);
 						ubyte[100] buf;
 						char[100] buf2;
+						auto str = sformat(buf2, "%s",299909);
 						for(int i=0; i<N; i++)
 						{
-							auto str = sformat(buf2, "%s",10000000);
-							long ts = utcNow();
 							conn.write((cast(ubyte*)str.ptr)[0..str.length]);
-							//write(utcNow()-ts,"_");
-							ts = utcNow();
 							conn.read(buf[0..str.length]);
-							//write(utcNow()-ts,",");
-							n++;
+							n+=1;
 						}
 						conn.close();
 				
