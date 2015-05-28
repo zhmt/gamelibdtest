@@ -84,7 +84,7 @@ void echoServer()
 	acc2.accept((Ptr!Conn c){
 			scope(exit) c.close();
 			
-			ubyte[5] buf;
+			ubyte[1] buf;
 			while(true)
 			{
 				int n = c.readSome(buf);
@@ -95,13 +95,87 @@ void echoServer()
 			}
 			writeFlush("close server sock");
 		});
-	
-	startEventLoop();
 }
+
+__gshared int n = 0;
+
+void echoClient()
+{
+	import std.string;
+	import gamelibd.util;
+
+	spawn({
+			long start = utcNow();
+			int N = 1000;
+			int T = 1;
+
+			//long ts = start;
+			ExceptionSafeFiber[] tasks;
+
+			for(int ii=0; ii<T; ii++){
+			auto t = spawn({
+						import core.memory : GC;
+						Ptr!Conn conn = connect("127.0.0.1",8881);
+						ubyte[100] buf;
+						char[100] buf2;
+						for(int i=0; i<N; i++)
+						{
+								auto str = sformat(buf2, "%s",10000000);
+							conn.write((cast(ubyte*)str.ptr)[0..str.length]);
+							conn.read(buf[0..str.length]);
+							n++;
+						}
+						conn.close();
+				});
+			tasks~=t;
+			}
+
+			spawn({
+					while(true)
+					{
+						ExceptionSafeFiber.sleep(1000);
+						writeFlush(n,"\r\n");
+					}
+				});
+
+			spawn({
+					while(true)
+					{
+						ExceptionSafeFiber.sleep(1000);
+						import core.memory : GC;
+						//core.memory.GC.collect();
+					}
+				});
+
+			spawn({
+					ExceptionSafeFiber.sleep(1000*40);
+					import std.c.process;
+					//exit(0);
+				});
+
+			foreach(ExceptionSafeFiber t ; tasks)
+				t.join();
+			
+			long end = utcNow();
+			writeFlush(N/((end-start)/1000.0)*T);
+			import std.c.process;
+			exit(0);
+		});
+
+
+}
+
+
+//,"-profile","-gc","-vgc"
 
 //try telnet 127.0.0.1 8881
 
 void main()
 {
+	//import core.memory : GC;
+	//GC.disable();
 	echoServer();
+	echoClient();
+
+	startEventLoop();
 }

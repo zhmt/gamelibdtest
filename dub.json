@@ -8,6 +8,7 @@
 	},
 	"workingDirectory":"../bin",
 	"targetPath":"../bin",
-	"dflags-dmd": ["-vtls"],
-	"dflags" : ["-gc"]
+	"dflags-dmd": ["-vtls","-O","-g"],
+	
+	"lflags":[]
 }
