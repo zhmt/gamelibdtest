@@ -84,16 +84,22 @@ void echoServer()
 	acc2.accept((Ptr!Conn c){
 			scope(exit) c.close();
 			
-			ubyte[1] buf;
+			ubyte[100] buf;
 			while(true)
 			{
+				long ts = utcNow();
 				int n = c.readSome(buf);
+				//write(utcNow()-ts,"_");
 				if(n<=0){
 					break;
 				}
+				ts = utcNow();
 				c.write(buf[0..n]);
+				//write(utcNow()-ts,",");
 			}
+
 			writeFlush("close server sock");
+
 		});
 }
 
@@ -106,28 +112,33 @@ void echoClient()
 
 	spawn({
 			long start = utcNow();
-			int N = 1000;
+			int N = 10000000;
 			int T = 1;
 
 			//long ts = start;
 			ExceptionSafeFiber[] tasks;
 
 			for(int ii=0; ii<T; ii++){
-			auto t = spawn({
+				auto t = spawn({
 						import core.memory : GC;
 						Ptr!Conn conn = connect("127.0.0.1",8881);
 						ubyte[100] buf;
 						char[100] buf2;
 						for(int i=0; i<N; i++)
 						{
-								auto str = sformat(buf2, "%s",10000000);
+							auto str = sformat(buf2, "%s",10000000);
+							long ts = utcNow();
 							conn.write((cast(ubyte*)str.ptr)[0..str.length]);
+							//write(utcNow()-ts,"_");
+							ts = utcNow();
 							conn.read(buf[0..str.length]);
+							//write(utcNow()-ts,",");
 							n++;
 						}
 						conn.close();
-				});
-			tasks~=t;
+				
+					});
+				tasks~=t;
 			}
 
 			spawn({
@@ -161,8 +172,6 @@ void echoClient()
 			import std.c.process;
 			exit(0);
 		});
-
-
 }
 
 
